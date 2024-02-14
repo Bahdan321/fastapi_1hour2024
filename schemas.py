@@ -8,3 +8,7 @@ class STaskAdd(BaseModel):
 
 class STask(STaskAdd):
     id: int
+
+class STaskID(BaseModel):
+    success: bool = True
+    task_id: int

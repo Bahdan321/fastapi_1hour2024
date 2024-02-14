@@ -2,7 +2,7 @@ from typing import Annotated
 from fastapi import APIRouter, Depends
 from repository import TaskRepository
 
-from schemas import STask, STaskAdd
+from schemas import STask, STaskAdd, STaskID
 
 tasks_router = APIRouter(
     prefix="/tasks",
@@ -14,7 +14,7 @@ tasks = []
 @tasks_router.post("/")
 async def add_task(
         task: Annotated[STaskAdd, Depends()],
-):
+) -> STaskID:
     task_id = await TaskRepository.add_one(task)
     return {
         "Success": True,
