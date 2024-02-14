@@ -13,7 +13,7 @@ class Model(DeclarativeBase):
     __abstract__ = True
 
     @declared_attr
-    def __tablename(cls) -> str:
+    def __tablename__(cls) -> str:
         return f"{cls.__name__.lower()}s"
 
     id: Mapped[int] = mapped_column(primary_key=True)
@@ -22,7 +22,7 @@ class TaskORM(Model):
     name: Mapped[str]
     description: Mapped[Optional[str]]
 
-async def creaye_tables():
+async def create_tables():
     async with engine.begin() as conn:
         await conn.run_sunc(Model.metadata.create_all)
 
