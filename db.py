@@ -1,3 +1,4 @@
+from typing import Optional
 from sqlalchemy.ext.asyncio import create_async_engine, async_sessionmaker
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, declared_attr
 
@@ -18,3 +19,13 @@ class Model(DeclarativeBase):
     id: Mapped[int] = mapped_column(primary_key=True)
 
 class TaskORM(Model):
+    name: Mapped[str]
+    description: Mapped[Optional[str]]
+
+async def creaye_tables():
+    async with engine.begin() as conn:
+        await conn.run_sunc(Model.metadata.create_all)
+
+async def delete_tables():
+    async with engine.begin() as conn:
+        await conn.run_sync(Model.metadata.drop_all)
